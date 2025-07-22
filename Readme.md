@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Александр Шуватов](https://up.htmlacademy.ru/javascript-individual/2/user/2583861).
-* Наставник: `Неизвестно`.
+* Наставник: [Давид Чачанов](https://htmlacademy.ru/profile/id2355549).
 
 ---
 
