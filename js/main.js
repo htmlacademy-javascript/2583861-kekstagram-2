@@ -1,3 +1,3 @@
-import {createPhotosArray} from './create-photos.js';
+import {createPhotosArray} from './create-photos-array.js';
 
 createPhotosArray();
