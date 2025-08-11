@@ -42,3 +42,29 @@ getPositiveNumber(2023);
 getPositiveNumber(-1);
 getPositiveNumber(1.5);
 
+// 4. Функция, которая принимает время начала и конца рабочего дня, а также время старта и продолжительность встречи в минутах и возвращает true, если встреча не выходит за рамки рабочего дня, и false, если выходит:
+
+const isMeetingInWorkHours = (startWorkTime, endWorkTime, startMeetingTime, meetingDurationInMinutes) => {
+  const startWorkDate = new Date ();
+  startWorkDate.setHours(startWorkTime.split(':')[0], startWorkTime.split(':')[1]);
+
+  const endWorkDate = new Date ();
+  endWorkDate.setHours(endWorkTime.split(':')[0], endWorkTime.split(':')[1]);
+
+  const startMeetingDate = new Date ();
+  startMeetingDate.setHours(startMeetingTime.split(':')[0], startMeetingTime.split(':')[1]);
+
+  const meetingDurationInHours = [Math.floor(meetingDurationInMinutes / 60), meetingDurationInMinutes % 60];
+  const endMeetingTime = startMeetingTime.split(':').map((element, index) => +element + meetingDurationInHours[index]);
+
+  const endMeetingDate = new Date ();
+  endMeetingDate.setHours(endMeetingTime[0], endMeetingTime[1]);
+
+  return startMeetingDate >= startWorkDate && endMeetingDate <= endWorkDate;
+};
+
+isMeetingInWorkHours('08:00', '17:30', '14:00', 90);
+isMeetingInWorkHours('8:0', '10:0', '8:0', 120);
+isMeetingInWorkHours('08:00', '14:30', '14:00', 90);
+isMeetingInWorkHours('14:00', '17:30', '08:0', 90);
+isMeetingInWorkHours('8:00', '17:30', '08:00', 900);
