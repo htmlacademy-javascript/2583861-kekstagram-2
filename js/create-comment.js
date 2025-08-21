@@ -1,5 +1,5 @@
-import {COMMENTS, NAMES} from './data.js';
-import {getRandomNumber, createIdGenerator} from './utils.js';
+import { COMMENTS, NAMES } from './data.js';
+import { getRandomNumber, createIdGenerator } from './utils.js';
 
 const createCommentsId = createIdGenerator(1, 1000);
 
