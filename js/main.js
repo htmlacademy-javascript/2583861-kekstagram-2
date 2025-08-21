@@ -1,1 +1,1 @@
-import './render-photos.js';
+import './open-photo.js';

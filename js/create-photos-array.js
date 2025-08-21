@@ -1,6 +1,6 @@
-import {DESCRIPTION} from './data.js';
-import {getRandomNumber, createIdGenerator} from './utils.js';
-import {createComment} from './create-comment.js';
+import { DESCRIPTION } from './data.js';
+import { getRandomNumber, createIdGenerator } from './utils.js';
+import { createComment } from './create-comment.js';
 
 const PHOTO_COUNT = 25;
 
@@ -17,4 +17,6 @@ const createPhoto = () => ({
 
 const createPhotosArray = () => Array.from({length: PHOTO_COUNT}, createPhoto);
 
-export {createPhotosArray};
+const photos = createPhotosArray();
+
+export { photos };
