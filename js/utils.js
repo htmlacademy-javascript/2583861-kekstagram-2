@@ -5,7 +5,7 @@ const getRandomNumber = (a, b) => {
   return Math.floor(result);
 };
 
-function createIdGenerator (min, max) {
+const createIdGenerator = (min, max) => {
   const usedId = new Set();
   return function () {
     let currentId = getRandomNumber(min, max);
@@ -18,6 +18,9 @@ function createIdGenerator (min, max) {
     usedId.add(currentId);
     return currentId;
   };
-}
+};
+
+const isEscapeKey = (evt) => evt.target === 'Escape';
 
 export {getRandomNumber, createIdGenerator};
+export { isEscapeKey };
