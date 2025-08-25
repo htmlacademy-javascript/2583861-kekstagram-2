@@ -1,1 +1,3 @@
-import './open-photo.js';
+import { renderBigPhoto } from './render-big-photo';
+
+renderBigPhoto();

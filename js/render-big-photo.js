@@ -1,40 +1,34 @@
+import { photos } from './render-photos.js';
+import { photosContainer } from './render-photos.js';
+import { openPhoto, closePhoto } from './act-photo.js';
+import { renderComments, renderMoreComments } from './render-comments';
+
 const bigPhoto = document.querySelector('.big-picture');
 const bigPhotoCloseButton = bigPhoto.querySelector('.big-picture__cancel');
 const bigPhotoImage = bigPhoto.querySelector('img');
 const bigPhotoLikesCount = bigPhoto.querySelector('.likes-count');
-const bigPhotoCommentCount = bigPhoto.querySelector('.social__comment-count');
-const bigPhotoCommentShownCount = bigPhoto.querySelector('.social__comment-shown-count');
-const bigPhotoCommentTotalCount = bigPhoto.querySelector('.social__comment-total-count');
-const bigPhotoComment = bigPhoto.querySelector('.social__comment');
 const bigPhotoCommentsList = bigPhoto.querySelector('.social__comments');
 const bigPhotoMoreCommentsButton = bigPhoto.querySelector('.comments-loader');
 const bigPhotoDescription = bigPhoto.querySelector('.social__caption');
 
-const commentsFragment = document.createDocumentFragment();
-
-const createCommentsFragment = (commentsArray) => {
-  const newComment = bigPhotoComment.cloneNode(true);
-  newComment.querySelector('.social__picture').src = commentsArray.avatar;
-  newComment.querySelector('.social__picture').alt = commentsArray.name;
-  newComment.querySelector('.social__text').textContent = commentsArray.message;
-  commentsFragment.append(newComment);
-};
-
-const renderBigPhoto = ({url, description, likes, comments}) => {
+const createBigPhoto = ({url, description, likes, comments}) => {
   bigPhotoImage.src = url;
   bigPhotoLikesCount.textContent = likes;
-
-  bigPhotoCommentShownCount.textContent = comments.length;
-  bigPhotoCommentTotalCount.textContent = comments.length;
-
-  comments.forEach(createCommentsFragment);
-  bigPhotoCommentsList.innerHTML = '';
-  bigPhotoCommentsList.append(commentsFragment);
-
   bigPhotoDescription.textContent = description;
-  bigPhotoCommentCount.classList.add('hidden');
-  bigPhotoMoreCommentsButton.classList.add('hidden');
+  bigPhotoCommentsList.innerHTML = '';
+  renderComments(comments);
+  bigPhotoMoreCommentsButton.addEventListener('click', renderMoreComments);
 };
 
-export { bigPhoto, bigPhotoCloseButton };
+const renderBigPhoto = () => photosContainer.addEventListener('click', (evt) => {
+  if (evt.target.closest('.picture')) {
+    evt.preventDefault();
+    openPhoto();
+    const currentPhoto = photos.find((element) => element.id === Number(evt.target.dataset.id));
+    createBigPhoto(currentPhoto);
+  }
+  bigPhotoCloseButton.addEventListener('click', closePhoto);
+});
+
+export { bigPhoto, bigPhotoCommentsList, bigPhotoMoreCommentsButton };
 export { renderBigPhoto };
