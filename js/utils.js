@@ -22,5 +22,7 @@ const createIdGenerator = (min, max) => {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
+const isNotFocused = (element) => element !== document.querySelector(':focus');
+
 export { getRandomNumber, createIdGenerator };
-export { isEscapeKey };
+export { isEscapeKey, isNotFocused };
