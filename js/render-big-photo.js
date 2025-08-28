@@ -1,6 +1,6 @@
 import { photos } from './render-photos.js';
 import { photosContainer } from './render-photos.js';
-import { openPhoto, closePhoto } from './act-photo.js';
+import { openPhoto, closePhoto } from './user-actions.js';
 import { renderComments, renderMoreComments } from './render-comments';
 
 const bigPhoto = document.querySelector('.big-picture');

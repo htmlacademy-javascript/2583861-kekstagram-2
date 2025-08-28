@@ -17,10 +17,9 @@ const createCommentsFragment = ({avatar, name, message}) => {
   commentsFragment.append(newComment);
 };
 
-const clearComments = () => {
+const clearRenderedComments = () => {
   commentsArrayFirstIndex = 0;
   shownCommentsCount = 0;
-  bigPhotoMoreCommentsButton.classList.add('hidden');
 };
 
 const renderMoreComments = () => {
@@ -35,7 +34,7 @@ const renderMoreComments = () => {
   commentsArrayFirstIndex += COMMENTS_COUNT_TO_RENDER;
 
   if (shownCommentsCount === openedPhotoComments.length) {
-    clearComments();
+    bigPhotoMoreCommentsButton.classList.add('hidden');
   }
 };
 
@@ -44,4 +43,4 @@ const renderComments = (comments) => {
   renderMoreComments();
 };
 
-export { clearComments, renderComments, renderMoreComments };
+export { clearRenderedComments, renderComments, renderMoreComments };
