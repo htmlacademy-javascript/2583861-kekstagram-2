@@ -22,7 +22,8 @@ const createIdGenerator = (min, max) => {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
+const splitToNoSpacesArray = (string) => string.trim().split(/\s+/);
+const hasDuplicates = (arr) => new Set(arr).size !== arr.length;
 const isNotFocused = (element) => element !== document.querySelector(':focus');
 
-export { getRandomNumber, createIdGenerator };
-export { isEscapeKey, isNotFocused };
+export { getRandomNumber, createIdGenerator, isEscapeKey, splitToNoSpacesArray, isNotFocused, hasDuplicates };

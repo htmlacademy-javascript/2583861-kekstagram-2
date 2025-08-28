@@ -1,9 +1,8 @@
 import { isEscapeKey, isNotFocused } from './utils.js';
-import { bigPhoto, bigPhotoMoreCommentsButton } from './render-big-photo.js';
+import { bigPhoto, bigPhotoMoreCommentsButton } from './create-big-photo.js';
 import { clearRenderedComments, renderMoreComments } from './render-comments.js';
-import { uploadPhotoForm, uploadPhotoOverlay, uploadPhotoFormCloseButton } from './upload-photo.js';
-import { uploadPhotoHashtagsInput, uploadPhotoDescriptionInput } from './upload-form-validator.js';
-import { onFormValidator, resetUploadForm } from './upload-form-validator.js';
+import { uploadPhotoForm, uploadPhotoOverlay, uploadPhotoFormCloseButton } from './upload-photo-handler.js';
+import { uploadHashtagInput, uploadDescriptionInput, validateFormInputs, resetUploadForm } from './pristine-validator.js';
 
 const openPhoto = () => {
   bigPhoto.classList.remove('hidden');
@@ -31,7 +30,7 @@ const closeUploadForm = () => {
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
   uploadPhotoFormCloseButton.removeEventListener('click', closeUploadForm);
-  uploadPhotoForm.removeEventListener('submit', onFormValidator);
+  uploadPhotoForm.removeEventListener('submit', validateFormInputs);
   resetUploadForm();
 };
 
@@ -42,7 +41,7 @@ function onDocumentKeydown (evt) {
       closePhoto();
     }
     if (!uploadPhotoOverlay.classList.contains('hidden')) {
-      if (isNotFocused(uploadPhotoDescriptionInput) && isNotFocused(uploadPhotoHashtagsInput)) {
+      if (isNotFocused(uploadDescriptionInput) && isNotFocused(uploadHashtagInput)) {
         closeUploadForm();
       }
     }
