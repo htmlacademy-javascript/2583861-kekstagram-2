@@ -1,4 +1,3 @@
-import { renderBigPhoto } from './render-big-photo';
-import './upload-photo';
+import { renderGallery } from './render-gallery';
 
-renderBigPhoto();
+renderGallery();

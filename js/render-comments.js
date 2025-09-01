@@ -1,4 +1,4 @@
-import { bigPhotoCommentsList, bigPhotoMoreCommentsButton } from './render-big-photo';
+import { bigPhotoCommentsList, bigPhotoMoreCommentsButton } from './create-big-photo';
 
 const bigPhotoComment = document.querySelector('.social__comment');
 const bigPhotoCommentShownCount = document.querySelector('.social__comment-shown-count');

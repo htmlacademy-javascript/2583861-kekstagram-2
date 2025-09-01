@@ -1,9 +1,11 @@
 import { isEscapeKey, isNotFocused } from './utils.js';
-import { bigPhoto, bigPhotoMoreCommentsButton } from './render-big-photo.js';
+import { bigPhoto, bigPhotoMoreCommentsButton, bigPhotoCloseButton } from './create-big-photo.js';
 import { clearRenderedComments, renderMoreComments } from './render-comments.js';
-import { uploadPhotoForm, uploadPhotoOverlay, uploadPhotoFormCloseButton } from './upload-photo.js';
-import { uploadPhotoHashtagsInput, uploadPhotoDescriptionInput } from './upload-form-validator.js';
-import { onFormValidator, resetUploadForm } from './upload-form-validator.js';
+import { uploadPhotoForm, uploadPhotoOverlay, uploadPhotoFormCloseButton } from './upload-photo-handler.js';
+import { uploadHashtagInput, uploadDescriptionInput, validateFormInputs, resetUploadForm } from './pristine-validator.js';
+import { uploadPhotoScaleSmallerButton, uploadPhotoScaleBiggerButton, effectsList } from './upload-photo-handler.js';
+import { scaleUpPhoto, scaleDownPhoto, resetScaleValue } from './scale-controls.js';
+import { changeEffect } from './nouislider-change-effects.js';
 
 const openPhoto = () => {
   bigPhoto.classList.remove('hidden');
@@ -15,6 +17,7 @@ const closePhoto = () => {
   bigPhoto.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
+  bigPhotoCloseButton.removeEventListener('click', closePhoto);
   bigPhotoMoreCommentsButton.classList.remove('hidden');
   bigPhotoMoreCommentsButton.removeEventListener('click', renderMoreComments);
   clearRenderedComments();
@@ -31,7 +34,11 @@ const closeUploadForm = () => {
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
   uploadPhotoFormCloseButton.removeEventListener('click', closeUploadForm);
-  uploadPhotoForm.removeEventListener('submit', onFormValidator);
+  uploadPhotoScaleSmallerButton.removeEventListener('click', scaleDownPhoto);
+  uploadPhotoScaleBiggerButton.removeEventListener('click', scaleUpPhoto);
+  resetScaleValue();
+  effectsList.removeEventListener('click', changeEffect);
+  uploadPhotoForm.removeEventListener('submit', validateFormInputs);
   resetUploadForm();
 };
 
@@ -42,7 +49,7 @@ function onDocumentKeydown (evt) {
       closePhoto();
     }
     if (!uploadPhotoOverlay.classList.contains('hidden')) {
-      if (isNotFocused(uploadPhotoDescriptionInput) && isNotFocused(uploadPhotoHashtagsInput)) {
+      if (isNotFocused(uploadDescriptionInput) && isNotFocused(uploadHashtagInput)) {
         closeUploadForm();
       }
     }
