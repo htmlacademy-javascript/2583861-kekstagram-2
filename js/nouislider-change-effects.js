@@ -1,4 +1,4 @@
-import { uploadPreviewPhoto } from './upload-photo-handler';
+import { uploadPreviewPhoto } from './upload-input-handler';
 
 const slider = document.querySelector('.effect-level__slider');
 const sliderContainer = document.querySelector('.img-upload__effect-level');

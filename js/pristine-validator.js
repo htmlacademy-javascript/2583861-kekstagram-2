@@ -1,5 +1,8 @@
-import { uploadPhotoInput } from './upload-photo-handler';
+import { uploadPhotoInput } from './upload-input-handler';
 import { splitToNoSpacesArray, hasDuplicates } from './utils';
+import { showSuccessMessage } from './success-message-actions';
+import { showErrorMessage } from './error-message-actions';
+import { sendData } from './api';
 
 const uploadPhotoForm = document.querySelector('.img-upload__form');
 const uploadHashtagInput = uploadPhotoForm.querySelector('.text__hashtags');
@@ -34,12 +37,13 @@ const resetUploadForm = () => {
   uploadDescriptionInput.value = '';
 };
 
-const validateFormInputs = (evt) => {
+const setUserFormSubmit = (evt) => {
   evt.preventDefault();
-  pristine.validate();
-  uploadHashtagInput.value = splitToNoSpacesArray(uploadHashtagInput.value).join(' ');
-  uploadPhotoForm.submit();
+  const isValid = pristine.validate();
+  if (isValid) {
+    uploadHashtagInput.value = splitToNoSpacesArray(uploadHashtagInput.value).join(' ');
+    sendData(uploadPhotoForm, showSuccessMessage, showErrorMessage);
+  }
 };
 
-export { uploadDescriptionInput, uploadHashtagInput };
-export { validateFormInputs, resetUploadForm };
+export { uploadDescriptionInput, uploadHashtagInput, setUserFormSubmit, resetUploadForm };

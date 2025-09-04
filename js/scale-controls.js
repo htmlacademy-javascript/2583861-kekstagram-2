@@ -1,4 +1,4 @@
-import { uploadPreviewPhoto } from './upload-photo-handler';
+import { uploadPreviewPhoto } from './upload-input-handler';
 
 const scaleControlValue = document.querySelector('.scale__control--value');
 

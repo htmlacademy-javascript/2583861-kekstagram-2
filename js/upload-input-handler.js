@@ -1,6 +1,6 @@
-import { openUploadForm, closeUploadForm } from './user-actions.js';
+import { openUploadForm, closeUploadForm } from './upload-form-actions.js';
 import { scaleUpPhoto, scaleDownPhoto } from './scale-controls.js';
-import { validateFormInputs } from './pristine-validator.js';
+import { setUserFormSubmit } from './pristine-validator.js';
 import { changeEffect, disableSlider } from './nouislider-change-effects.js';
 
 const uploadPhotoForm = document.querySelector('.img-upload__form');
@@ -12,7 +12,7 @@ const uploadPreviewPhoto = uploadPhotoForm.querySelector('.img-upload__preview')
 const effectsList = uploadPhotoForm.querySelector('.effects');
 const uploadPhotoFormCloseButton = uploadPhotoForm.querySelector('.img-upload__cancel');
 
-const uploadPhotoHandler = () => {
+const uploadInputHandler = () => {
   uploadPhotoInput.addEventListener('change', () => {
     openUploadForm();
     uploadPhotoFormCloseButton.addEventListener('click', closeUploadForm);
@@ -20,9 +20,9 @@ const uploadPhotoHandler = () => {
     uploadPhotoScaleBiggerButton.addEventListener('click', scaleUpPhoto);
     disableSlider();
     effectsList.addEventListener('click', changeEffect);
-    uploadPhotoForm.addEventListener('submit', validateFormInputs);
+    uploadPhotoForm.addEventListener('submit', setUserFormSubmit);
   });
 };
 
 export { uploadPhotoForm, uploadPhotoInput, uploadPhotoOverlay, uploadPhotoScaleSmallerButton, uploadPhotoScaleBiggerButton, uploadPreviewPhoto, effectsList, uploadPhotoFormCloseButton };
-export { uploadPhotoHandler };
+export { uploadInputHandler };

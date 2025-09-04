@@ -1,8 +1,8 @@
-import { photos, photosContainer } from './render-gallery.js';
+import { photosContainer } from './render-gallery.js';
 import { createBigPhoto, bigPhotoCloseButton } from './create-big-photo.js';
-import { openPhoto, closePhoto } from './user-actions.js';
+import { openPhoto, closePhoto } from './photo-actions.js';
 
-const clickPhotoHandler = () => photosContainer.addEventListener('click', (evt) => {
+const clickPhotoHandler = (photos) => photosContainer.addEventListener('click', (evt) => {
   if (evt.target.closest('.picture')) {
     evt.preventDefault();
     openPhoto();
