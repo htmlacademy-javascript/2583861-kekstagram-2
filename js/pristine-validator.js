@@ -2,11 +2,22 @@ import { uploadPhotoInput } from './upload-input-handler';
 import { splitToNoSpacesArray, hasDuplicates } from './utils';
 import { showSuccessMessage } from './success-message-actions';
 import { showErrorMessage } from './error-message-actions';
-import { sendData } from './api';
+import { uploadPhotoToServer } from './api';
 
 const uploadPhotoForm = document.querySelector('.img-upload__form');
 const uploadHashtagInput = uploadPhotoForm.querySelector('.text__hashtags');
 const uploadDescriptionInput = uploadPhotoForm.querySelector('.text__description');
+const submitButton = document.querySelector('.img-upload__submit');
+
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Опубликовываю...';
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
 
 const pristine = new Pristine(uploadPhotoForm, {
   classTo: 'img-upload__field-wrapper',
@@ -37,12 +48,21 @@ const resetUploadForm = () => {
   uploadDescriptionInput.value = '';
 };
 
-const setUserFormSubmit = (evt) => {
+const setUserFormSubmit = async (evt) => {
   evt.preventDefault();
   const isValid = pristine.validate();
   if (isValid) {
+    blockSubmitButton();
     uploadHashtagInput.value = splitToNoSpacesArray(uploadHashtagInput.value).join(' ');
-    sendData(uploadPhotoForm, showSuccessMessage, showErrorMessage);
+    const formData = new FormData(uploadPhotoForm);
+    try {
+      await uploadPhotoToServer(formData);
+      showSuccessMessage();
+    } catch {
+      showErrorMessage();
+    } finally {
+      unblockSubmitButton();
+    }
   }
 };
 
