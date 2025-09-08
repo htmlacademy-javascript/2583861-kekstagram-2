@@ -1,29 +1,29 @@
-const getData = (onSuccess, onFail) => {
-  fetch('https://31.javascript.htmlacademy.pro/kekstagram/data')
-    .then((responce) => {
-      if (!responce.ok) {
-        onFail();
-      }
-      return responce.json();
-    })
-    .then((photos) => onSuccess(photos))
-    .catch(() => onFail());
+const BASE_URL = 'https://31.javascript.htmlacademy.pro/kekstagram';
+
+const Route = {
+  GET_DATA: '/data',
+  SEND_DATA: '/',
 };
 
-const sendData = (formElement, onSuccess, onFail) => {
-  fetch('https://31.javascript.htmlacademy.pro/kekstagram', {
-    method: 'POST',
-    body: new FormData(formElement)
-  })
-    .then((responce) => {
-      if (!responce.ok) {
-        onFail();
-      }
-      onSuccess();
-    })
-    .catch(() => {
-      onFail();
-    });
+const Method = {
+  GET: 'GET',
+  POST: 'POST',
 };
 
-export { getData, sendData };
+const ErrorText = {
+  [Method.GET]: 'Не удалось загрузить данные! Попробуйте еще раз',
+  [Method.POST]: 'Не удалось отправить данные формы'
+};
+
+const loadData = async (route, method = Method.GET, body = null) => {
+  const responce = await fetch(`${BASE_URL}${route}`, {
+    method: method,
+    body: body
+  });
+  return responce.ok ? await responce.json() : Promise.reject(ErrorText[method]);
+};
+
+const getPhotosFromServer = async () => await loadData(Route.GET_DATA);
+const uploadPhotoToServer = async (photoFormData) => await loadData(Route.SEND_DATA, Method.POST, photoFormData);
+
+export { getPhotosFromServer, uploadPhotoToServer };

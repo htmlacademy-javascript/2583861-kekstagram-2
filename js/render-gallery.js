@@ -1,6 +1,3 @@
-import { clickPhotoHandler } from './click-photo-handler.js';
-import { uploadInputHandler } from './upload-input-handler.js';
-
 const photosContainer = document.querySelector('.pictures');
 const photoTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const photosListFragment = document.createDocumentFragment();
@@ -15,11 +12,15 @@ const createListFragment = ({id, url, description, likes, comments}) => {
   photosListFragment.append(newPhoto);
 };
 
+const clearGallery = () => {
+  const renderedPhotos = photosContainer.querySelectorAll('.picture');
+  renderedPhotos.forEach((item) => item.remove());
+};
+
 const renderGallery = (photos) => {
+  clearGallery();
   photos.forEach(createListFragment);
   photosContainer.append(photosListFragment);
-  clickPhotoHandler(photos);
-  uploadInputHandler();
 };
 
 export { photosContainer, renderGallery };
