@@ -2,13 +2,7 @@ import { uploadPhotoForm, uploadPhotoOverlay, uploadPhotoFormCloseButton, upload
 import { onUploadFormKeydown } from './on-element-actions.js';
 import { setUserFormSubmit, resetUploadForm } from './pristine-validator.js';
 import { scaleUpPhoto, scaleDownPhoto, resetScaleValue } from './scale-controls.js';
-import { changeEffect } from './nouislider-change-effects.js';
-
-const openUploadForm = () => {
-  uploadPhotoOverlay.classList.remove('hidden');
-  document.body.classList.add('modal-open');
-  document.addEventListener('keydown', onUploadFormKeydown);
-};
+import { changeEffect, disableSlider } from './nouislider-change-effects.js';
 
 const closeUploadForm = () => {
   uploadPhotoOverlay.classList.add('hidden');
@@ -21,6 +15,18 @@ const closeUploadForm = () => {
   effectsList.removeEventListener('click', changeEffect);
   uploadPhotoForm.removeEventListener('submit', setUserFormSubmit);
   resetUploadForm();
+};
+
+const openUploadForm = () => {
+  uploadPhotoOverlay.classList.remove('hidden');
+  document.body.classList.add('modal-open');
+  document.addEventListener('keydown', onUploadFormKeydown);
+  uploadPhotoFormCloseButton.addEventListener('click', closeUploadForm);
+  uploadPhotoScaleSmallerButton.addEventListener('click', scaleDownPhoto);
+  uploadPhotoScaleBiggerButton.addEventListener('click', scaleUpPhoto);
+  disableSlider();
+  effectsList.addEventListener('click', changeEffect);
+  uploadPhotoForm.addEventListener('submit', setUserFormSubmit);
 };
 
 export { openUploadForm, closeUploadForm };

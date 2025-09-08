@@ -1,7 +1,6 @@
-import { openUploadForm, closeUploadForm } from './upload-form-actions.js';
-import { scaleUpPhoto, scaleDownPhoto } from './scale-controls.js';
-import { setUserFormSubmit } from './pristine-validator.js';
-import { changeEffect, disableSlider } from './nouislider-change-effects.js';
+import { openUploadForm } from './upload-form-actions.js';
+
+const FILE_UPLOAD_TYPES = ['jpg', 'jpeg', 'png'];
 
 const uploadPhotoForm = document.querySelector('.img-upload__form');
 const uploadPhotoOverlay = uploadPhotoForm.querySelector('.img-upload__overlay');
@@ -14,13 +13,12 @@ const uploadPhotoFormCloseButton = uploadPhotoForm.querySelector('.img-upload__c
 
 const uploadInputHandler = () => {
   uploadPhotoInput.addEventListener('change', () => {
-    openUploadForm();
-    uploadPhotoFormCloseButton.addEventListener('click', closeUploadForm);
-    uploadPhotoScaleSmallerButton.addEventListener('click', scaleDownPhoto);
-    uploadPhotoScaleBiggerButton.addEventListener('click', scaleUpPhoto);
-    disableSlider();
-    effectsList.addEventListener('click', changeEffect);
-    uploadPhotoForm.addEventListener('submit', setUserFormSubmit);
+    const uploadingPhotoFile = uploadPhotoInput.files[0];
+    const uploadingPhotoFileName = uploadingPhotoFile.name.toLowerCase();
+    if (FILE_UPLOAD_TYPES.some((item) => uploadingPhotoFileName.endsWith(item))) {
+      uploadPreviewPhoto.src = URL.createObjectURL(uploadingPhotoFile);
+      openUploadForm();
+    }
   });
 };
 
