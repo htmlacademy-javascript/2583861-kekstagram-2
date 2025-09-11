@@ -1,4 +1,4 @@
-const DATA_ERROR_DURATION = 5000;
+import { DATA_ERROR_DURATION } from './const';
 
 const body = document.querySelector('body');
 const dataErrorMessage = document.querySelector('#data-error').content.querySelector('.data-error');
