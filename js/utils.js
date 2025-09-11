@@ -5,7 +5,7 @@ const getRandomNumber = (a, b) => {
   return Math.floor(result);
 };
 
-const debounce = (callback, timeoutDelay = 500) => {
+const debounce = (callback, timeoutDelay) => {
   let timeoutId;
   return (...rest) => {
     clearTimeout(timeoutId);
@@ -16,7 +16,9 @@ const debounce = (callback, timeoutDelay = 500) => {
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const splitToNoSpacesArray = (string) => string.trim().split(/\s+/);
+
 const hasDuplicates = (arr) => new Set(arr).size !== arr.length;
+
 const isNotFocused = (element) => element !== document.querySelector(':focus');
 
 export { getRandomNumber, debounce, isEscapeKey, splitToNoSpacesArray, isNotFocused, hasDuplicates };

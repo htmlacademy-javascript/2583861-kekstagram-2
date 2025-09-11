@@ -1,19 +1,4 @@
-const BASE_URL = 'https://31.javascript.htmlacademy.pro/kekstagram';
-
-const Route = {
-  GET_DATA: '/data/',
-  SEND_DATA: '/',
-};
-
-const Method = {
-  GET: 'GET',
-  POST: 'POST',
-};
-
-const ErrorText = {
-  [Method.GET]: 'Не удалось загрузить данные! Попробуйте еще раз',
-  [Method.POST]: 'Не удалось отправить данные формы'
-};
+import { BASE_URL, Route, Method, ErrorText } from './const';
 
 const loadData = async (route, method = Method.GET, body = null) => {
   const responce = await fetch(`${BASE_URL}${route}`, {

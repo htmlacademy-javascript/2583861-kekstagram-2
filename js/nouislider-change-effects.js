@@ -1,14 +1,11 @@
+import { Effects } from './const';
 import { uploadPreviewPhoto } from './upload-input-handler';
 
 const slider = document.querySelector('.effect-level__slider');
 const sliderContainer = document.querySelector('.img-upload__effect-level');
 const effectLevelValue = document.querySelector('.effect-level__value');
+const effectRadioButtons = document.querySelectorAll('.effects__radio');
 const effectNone = document.querySelector('#effect-none');
-const effectChrome = document.querySelector('#effect-chrome');
-const effectSepia = document.querySelector('#effect-sepia');
-const effectMarvin = document.querySelector('#effect-marvin');
-const effectPhobos = document.querySelector('#effect-phobos');
-const effectHeat = document.querySelector('#effect-heat');
 
 noUiSlider.create(slider, {
   range: {
@@ -31,17 +28,9 @@ noUiSlider.create(slider, {
   },
 });
 
-const enableSliderAndUpdateOptions = (minRange, maxRange, step) => {
+const enableSlider = () => {
   sliderContainer.classList.remove('hidden');
   slider.removeAttribute('disabled');
-  slider.noUiSlider.updateOptions({
-    range: {
-      min: minRange,
-      max: maxRange,
-    },
-    step: step,
-    start: maxRange,
-  });
 };
 
 const disableSlider = () => {
@@ -52,39 +41,25 @@ const disableSlider = () => {
 };
 
 const changeEffect = (evt) => {
-  if (evt.target.matches('#effect-chrome')) {
-    enableSliderAndUpdateOptions(0, 1, 0.1);
-    uploadPreviewPhoto.style.filter = 'grayscale(1)';
-  } else if (evt.target.matches('#effect-sepia')) {
-    enableSliderAndUpdateOptions(0, 1, 0.1);
-    uploadPreviewPhoto.style.filter = 'sepia(1)';
-  } else if (evt.target.matches('#effect-marvin')) {
-    enableSliderAndUpdateOptions(0, 100, 1);
-    uploadPreviewPhoto.style.filter = 'invert(100%)';
-  } else if (evt.target.matches('#effect-phobos')) {
-    enableSliderAndUpdateOptions(0, 3, 0.1);
-    uploadPreviewPhoto.style.filter = 'blur(3px)';
-  } else if (evt.target.matches('#effect-heat')) {
-    enableSliderAndUpdateOptions(1, 3, 0.1);
-    uploadPreviewPhoto.style.filter = 'brightness(3)';
-  } else if (evt.target.matches('#effect-none')) {
-    disableSlider();
+  const targetEffect = Effects[evt.target.value];
+  if (evt.target.matches('input[type="radio"]')) {
+    if (evt.target.matches('input[type="radio"][value="none"]')) {
+      disableSlider();
+    } else {
+      enableSlider();
+      slider.noUiSlider.updateOptions(targetEffect.sliderOptions);
+      uploadPreviewPhoto.style.filter = targetEffect.setFilterValue(targetEffect.maxValue);
+    }
   }
 };
 
 slider.noUiSlider.on('update', () => {
   effectLevelValue.value = slider.noUiSlider.get();
-  if (effectChrome.checked) {
-    uploadPreviewPhoto.style.filter = `grayscale(${effectLevelValue.value})`;
-  } else if (effectSepia.checked) {
-    uploadPreviewPhoto.style.filter = `sepia(${effectLevelValue.value})`;
-  } else if (effectMarvin.checked) {
-    uploadPreviewPhoto.style.filter = `invert(${effectLevelValue.value}%)`;
-  } else if (effectPhobos.checked) {
-    uploadPreviewPhoto.style.filter = `blur(${effectLevelValue.value}px)`;
-  } else if (effectHeat.checked) {
-    uploadPreviewPhoto.style.filter = `brightness(${effectLevelValue.value})`;
-  }
+  effectRadioButtons.forEach((button) => {
+    if (button.checked && button.value !== 'none') {
+      uploadPreviewPhoto.style.filter = Effects[button.value].setFilterValue(effectLevelValue.value);
+    }
+  });
 });
 
 export { changeEffect, disableSlider };

@@ -1,9 +1,10 @@
+import { DEBOUNCE_DELAY_TIME } from './const';
 import { getRandomNumber } from './utils';
 import { renderGallery } from './render-gallery';
 import { debounce } from './utils';
 
 const filterElement = document.querySelector('.img-filters');
-const debounceRender = debounce(renderGallery);
+const debounceRender = debounce(renderGallery, DEBOUNCE_DELAY_TIME);
 
 let pictures = [];
 let currentFilter = 'filter-default';
