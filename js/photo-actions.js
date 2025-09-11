@@ -1,10 +1,12 @@
 import { bigPhoto, bigPhotoMoreCommentsButton, bigPhotoCloseButton } from './create-big-photo.js';
-import { onDocumentKeydown } from './on-document-actions.js';
-import { clearRenderedComments, renderMoreComments } from './render-comments.js';
+import { onBigPhotoCloseButtonClick, onMoreCommentsButtonClick, onDocumentKeydown } from './on-event-handlers.js';
+import { clearRenderedComments } from './render-comments.js';
 
 const openPhoto = () => {
   bigPhoto.classList.remove('hidden');
   document.body.classList.add('modal-open');
+  bigPhotoMoreCommentsButton.addEventListener('click', onMoreCommentsButtonClick);
+  bigPhotoCloseButton.addEventListener('click', onBigPhotoCloseButtonClick);
   document.addEventListener('keydown', onDocumentKeydown);
 };
 
@@ -13,9 +15,9 @@ const closePhoto = () => {
     bigPhoto.classList.add('hidden');
     document.body.classList.remove('modal-open');
     document.removeEventListener('keydown', onDocumentKeydown);
-    bigPhotoCloseButton.removeEventListener('click', closePhoto);
+    bigPhotoCloseButton.removeEventListener('click', onBigPhotoCloseButtonClick);
     bigPhotoMoreCommentsButton.classList.remove('hidden');
-    bigPhotoMoreCommentsButton.removeEventListener('click', renderMoreComments);
+    bigPhotoMoreCommentsButton.removeEventListener('click', onMoreCommentsButtonClick);
     clearRenderedComments();
   }
 };
