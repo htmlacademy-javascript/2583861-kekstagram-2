@@ -1,8 +1,9 @@
+import { HASHTAG_REG_EXP } from './const';
 import { uploadPhotoInput } from './upload-input-handler';
 import { splitToNoSpacesArray, hasDuplicates } from './utils';
+import { uploadPhotoToServer } from './api';
 import { showSuccessMessage } from './success-message-actions';
 import { showErrorMessage } from './error-message-actions';
-import { uploadPhotoToServer } from './api';
 
 const uploadPhotoForm = document.querySelector('.img-upload__form');
 const uploadHashtagInput = uploadPhotoForm.querySelector('.text__hashtags');
@@ -26,11 +27,10 @@ const pristine = new Pristine(uploadPhotoForm, {
 });
 
 const validateHashtagValue = (inputValue) => {
-  const hashtagRegExp = /^#[a-zа-яё0-9]{1,19}$/i;
   if (inputValue === '') {
     return true;
   }
-  return splitToNoSpacesArray(inputValue).every((element) => hashtagRegExp.test(element));
+  return splitToNoSpacesArray(inputValue).every((element) => HASHTAG_REG_EXP.test(element));
 };
 const validateHashtagsCount = (inputValue) => splitToNoSpacesArray(inputValue).length <= 5;
 const validateHashtagsDuplicates = (inputValue) => !hasDuplicates(splitToNoSpacesArray(inputValue.toLowerCase()));

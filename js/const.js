@@ -19,6 +19,16 @@ const DATA_ERROR_DURATION = 5000;
 
 const DEBOUNCE_DELAY_TIME = 500;
 
+const COMMENTS_COUNT_TO_RENDER = 5;
+
+const MAX_SCALE = 100;
+
+const MIN_SCALE = 25;
+
+const SCALE_STEP = 25;
+
+const HUNDRED = 100;
+
 const Effects = {
   chrome: {
     sliderOptions: {
@@ -82,6 +92,8 @@ const Effects = {
   }
 };
 
+const HASHTAG_REG_EXP = /^#[a-zа-яё0-9]{1,19}$/i;
+
 const FILE_UPLOAD_TYPES = ['.jpg', '.jpeg', '.png', '.webp'];
 
-export { BASE_URL, Route, Method, ErrorText, DATA_ERROR_DURATION, DEBOUNCE_DELAY_TIME, Effects, FILE_UPLOAD_TYPES };
+export { BASE_URL, Route, Method, ErrorText, DATA_ERROR_DURATION, DEBOUNCE_DELAY_TIME, COMMENTS_COUNT_TO_RENDER, MAX_SCALE, MIN_SCALE, SCALE_STEP, HUNDRED, Effects, HASHTAG_REG_EXP, FILE_UPLOAD_TYPES };

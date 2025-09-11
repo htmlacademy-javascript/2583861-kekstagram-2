@@ -1,4 +1,4 @@
-import { renderComments, renderMoreComments } from './render-comments.js';
+import { renderComments } from './render-comments.js';
 
 const bigPhoto = document.querySelector('.big-picture');
 const bigPhotoImage = bigPhoto.querySelector('img');
@@ -14,7 +14,6 @@ const createBigPhoto = ({url, description, likes, comments}) => {
   bigPhotoDescription.textContent = description;
   bigPhotoCommentsList.innerHTML = '';
   renderComments(comments);
-  bigPhotoMoreCommentsButton.addEventListener('click', renderMoreComments);
 };
 
 export { bigPhoto, bigPhotoCommentsList, bigPhotoMoreCommentsButton, bigPhotoCloseButton };

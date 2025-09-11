@@ -17,7 +17,7 @@ const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const splitToNoSpacesArray = (string) => string.trim().split(/\s+/);
 
-const hasDuplicates = (arr) => new Set(arr).size !== arr.length;
+const hasDuplicates = (values) => new Set(values).size !== values.length;
 
 const isNotFocused = (element) => element !== document.querySelector(':focus');
 

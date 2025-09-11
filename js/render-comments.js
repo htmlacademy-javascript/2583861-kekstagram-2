@@ -1,3 +1,4 @@
+import { COMMENTS_COUNT_TO_RENDER } from './const';
 import { bigPhotoCommentsList, bigPhotoMoreCommentsButton } from './create-big-photo';
 
 const bigPhotoComment = document.querySelector('.social__comment');
@@ -23,7 +24,6 @@ const clearRenderedComments = () => {
 };
 
 const renderMoreComments = () => {
-  const COMMENTS_COUNT_TO_RENDER = 5;
   const commentsToRender = openedPhotoComments.slice(commentsArrayFirstIndex, commentsArrayFirstIndex + COMMENTS_COUNT_TO_RENDER);
   commentsToRender.forEach(createCommentsFragment);
   bigPhotoCommentsList.append(commentsFragment);

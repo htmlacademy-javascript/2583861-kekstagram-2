@@ -1,5 +1,5 @@
 import { closeUploadForm } from './upload-form-actions';
-import { onDocumentKeydown, onOutsideClick } from './on-document-actions';
+import { onSuccessButtonClick, onDocumentKeydown, onOutsideClick } from './on-event-handlers';
 
 const body = document.querySelector('body');
 const successMessage = document.querySelector('#success').content.querySelector('.success');
@@ -16,7 +16,7 @@ const closeSuccessMessage = () => {
 const showSuccessMessage = () => {
   closeUploadForm();
   body.insertAdjacentElement('beforeend', successMessage);
-  successButton.addEventListener('click', closeSuccessMessage);
+  successButton.addEventListener('click', onSuccessButtonClick);
   document.addEventListener('keydown', onDocumentKeydown);
   document.addEventListener('click', onOutsideClick);
 };
